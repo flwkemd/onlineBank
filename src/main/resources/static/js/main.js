@@ -1,7 +1,3 @@
-/**
- * Created by z00382545 on 10/20/16.
- */
-
 (function ($) {
     $.toggleShowPassword = function (options) {
         var settings = $.extend({
@@ -46,14 +42,14 @@
 $(document).ready(function() {
     var confirm = function() {
         bootbox.confirm({
-            title: "Appointment Confirmation",
-            message: "Do you really want to schedule this appointment?",
+            title: "예약 확인하기",
+            message: "예약을 하시겠습니까?",
             buttons: {
                 cancel: {
-                    label: '<i class="fa fa-times"></i> Cancel'
+                    label: '<i class="fa fa-times"></i> 취소'
                 },
                 confirm: {
-                    label: '<i class="fa fa-check"></i> Confirm'
+                    label: '<i class="fa fa-check"></i> 예약하기'
                 }
             },
             callback: function (result) {
