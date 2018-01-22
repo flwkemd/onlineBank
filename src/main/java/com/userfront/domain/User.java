@@ -2,126 +2,139 @@ package com.userfront.domain;
 
 import java.util.List;
 
-public class User {
-	private Long userId;
-	private String username;
-	private String password;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String phone;
-	
-	private boolean enabled=true;
-	
-	private PrimaryAccount primaryAccount;
-	
-	private SavingsAccount savingsAccount;
-	
-	private List<Appointment> appointmentList;
-	
-	private List<Recipient> recipientList;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-	public Long getUserId() {
-		return userId;
-	}
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+@Entity
+public class User{
 
-	public String getUsername() {
-		return username;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "userId", nullable = false, updatable = false)
+    private Long userId;
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
+    private String phone;
 
-	public String getPassword() {
-		return password;
-	}
+    private boolean enabled=true;
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    @OneToOne
+    private PrimaryAccount primaryAccount;
 
-	public String getFirstName() {
-		return firstName;
-	}
+    @OneToOne
+    private SavingsAccount savingsAccount;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Appointment> appointmentList;
 
-	public String getLastName() {
-		return lastName;
-	}
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Recipient> recipientList;
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public Long getUserId() {
+        return userId;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public PrimaryAccount getPrimaryAccount() {
-		return primaryAccount;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setPrimaryAccount(PrimaryAccount primaryAccount) {
-		this.primaryAccount = primaryAccount;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public SavingsAccount getSavingsAccount() {
-		return savingsAccount;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setSavingsAccount(SavingsAccount savingsAccount) {
-		this.savingsAccount = savingsAccount;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public List<Appointment> getAppointmentList() {
-		return appointmentList;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public void setAppointmentList(List<Appointment> appointmentList) {
-		this.appointmentList = appointmentList;
-	}
+    public List<Appointment> getAppointmentList() {
+        return appointmentList;
+    }
 
-	public List<Recipient> getRecipientList() {
-		return recipientList;
-	}
+    public void setAppointmentList(List<Appointment> appointmentList) {
+        this.appointmentList = appointmentList;
+    }
 
-	public void setRecipientList(List<Recipient> recipientList) {
-		this.recipientList = recipientList;
-	}
+    public List<Recipient> getRecipientList() {
+        return recipientList;
+    }
 
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", email=" + email + ", phone=" + phone + ", enabled="
-				+ enabled + "]";
-	}
-	
+    public void setRecipientList(List<Recipient> recipientList) {
+        this.recipientList = recipientList;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public PrimaryAccount getPrimaryAccount() {
+        return primaryAccount;
+    }
+
+    public void setPrimaryAccount(PrimaryAccount primaryAccount) {
+        this.primaryAccount = primaryAccount;
+    }
+
+    public SavingsAccount getSavingsAccount() {
+        return savingsAccount;
+    }
+
+    public void setSavingsAccount(SavingsAccount savingsAccount) {
+        this.savingsAccount = savingsAccount;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
 }
