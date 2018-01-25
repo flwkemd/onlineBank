@@ -9,4 +9,5 @@ import com.userfront.domain.SavingsTransaction;
 public interface SavingsTransactionDao extends CrudRepository<SavingsTransaction, Long> {
 
     List<SavingsTransaction> findAll();
+    
 }

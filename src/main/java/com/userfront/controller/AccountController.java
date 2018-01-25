@@ -22,7 +22,7 @@ import com.userfront.service.UserService;
 @Controller
 @RequestMapping("/account")
 public class AccountController {
-
+ 
 	@Autowired
     private UserService userService;
 	
