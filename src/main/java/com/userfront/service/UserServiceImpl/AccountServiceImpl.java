@@ -96,6 +96,7 @@ public class AccountServiceImpl implements AccountService{
             Date date = new Date();
 
             PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, "기본 계좌에서 인출하기", "기본 계좌", "완료", amount, primaryAccount.getAccountBalance(), primaryAccount);
+            transactionService.savePrimaryWithdrawTransaction(primaryTransaction);
         } else if (accountType.equalsIgnoreCase("Savings")) {
             SavingsAccount savingsAccount = user.getSavingsAccount();
             savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().subtract(new BigDecimal(amount)));
@@ -103,6 +104,7 @@ public class AccountServiceImpl implements AccountService{
 
             Date date = new Date();
             SavingsTransaction savingsTransaction = new SavingsTransaction(date, "예금 계좌에서 인출하기", "예금 계좌", "완료", amount, savingsAccount.getAccountBalance(), savingsAccount);
+            transactionService.saveSavingsWithdrawTransaction(savingsTransaction);
         }
     }
 
