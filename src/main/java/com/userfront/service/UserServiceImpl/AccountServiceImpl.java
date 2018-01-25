@@ -67,7 +67,7 @@ public class AccountServiceImpl implements AccountService{
 
             Date date = new Date();
 
-            PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, "기본 계좌로 입금", "기본 계좌", "완료", amount, primaryAccount.getAccountBalance(), primaryAccount);
+            PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, "기본 계좌로 입금하기", "기본 계좌", "완료", amount, primaryAccount.getAccountBalance(), primaryAccount);
             
         } else if (accountType.equalsIgnoreCase("Savings")) {
             SavingsAccount savingsAccount = user.getSavingsAccount();
@@ -75,8 +75,30 @@ public class AccountServiceImpl implements AccountService{
             savingsAccountDao.save(savingsAccount);
 
             Date date = new Date();
-            SavingsTransaction savingsTransaction = new SavingsTransaction(date, "예금 계좌로 입금", "예금 계좌", "완료", amount, savingsAccount.getAccountBalance(), savingsAccount);
+            SavingsTransaction savingsTransaction = new SavingsTransaction(date, "예금 계좌로 입금하기", "예금 계좌", "완료", amount, savingsAccount.getAccountBalance(), savingsAccount);
         }
     }
+
+    public void withdraw(String accountType, double amount, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+
+        if (accountType.equalsIgnoreCase("Primary")) {
+            PrimaryAccount primaryAccount = user.getPrimaryAccount();
+            primaryAccount.setAccountBalance(primaryAccount.getAccountBalance().subtract(new BigDecimal(amount)));
+            primaryAccountDao.save(primaryAccount);
+
+            Date date = new Date();
+
+            PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, "기본 계좌에서 인출하기", "기본 계좌", "완료", amount, primaryAccount.getAccountBalance(), primaryAccount);
+        } else if (accountType.equalsIgnoreCase("Savings")) {
+            SavingsAccount savingsAccount = user.getSavingsAccount();
+            savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().subtract(new BigDecimal(amount)));
+            savingsAccountDao.save(savingsAccount);
+
+            Date date = new Date();
+            SavingsTransaction savingsTransaction = new SavingsTransaction(date, "예금 계좌에서 인출하기", "예금 계좌", "완료", amount, savingsAccount.getAccountBalance(), savingsAccount);
+        }
+    }
+
 
 }

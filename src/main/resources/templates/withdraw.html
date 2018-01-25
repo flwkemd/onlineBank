@@ -7,9 +7,9 @@
 <div class="container main">
     <div class="row">
         <div class="col-md-6">
-            <form th:action="@{/account/deposit}" method="post">
+            <form th:action="@{/account/withdraw}" method="post">
                 <div class="form-group" >
-                    <label for="accountType">1. 입금을 원하시는 계좌를 선택해주세요.</label>
+                    <label for="accountType">1. 출금을 원하시는 계좌를 선택해주세요.</label>
                     <select class="form-control" th:value="${accountType}" name="accountType" id="accountType" required="required">
                         <option disabled="disabled" selected="selected"> -- 계좌 선택하기 -- </option>
                         <option>기본 계좌</option>
@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>2. 입금하고자 하시는 금액을 지정하세요: </label>
+                    <label>2. 출금하고자 하시는 금액을 지정하세요: </label>
                     <span class="input-group-addon">금액 :</span>
                     <input th:value="${amount}" type="text" name="amount" id="amount" class="form-control" aria-label="Amount"/>
                 </div>
@@ -28,7 +28,7 @@
                        name="${_csrf.parameterName}"
                        value="${_csrf.token}"/>
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit">입금하기</button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">출금하기</button>
             </form>
 
             <div class="col-md-6">

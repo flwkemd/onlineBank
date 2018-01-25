@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-xs-6">
                             <!--<i class="fa fa-comments fa-5x"></i>-->
-                            <h2>기본 잔액: </h2>
+                            <h2>기본 계좌: </h2>
                         </div>
                         <div class="col-xs-6 text-right">
                             <h1><i class="fa fa-money" aria-hidden="true"></i> <span th:text="${primaryAccount.accountBalance}">...</span></h1>
@@ -62,13 +62,13 @@
                             <i class="fa fa-credit-card fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div>예금</div>
+                            <div>입금</div>
                         </div>
                     </div>
                 </div>
                 <a th:href="@{/account/deposit}">
                     <div class="panel-footer">
-                        <span class="pull-left">예금하기</span>
+                        <span class="pull-left">입금하기</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
@@ -83,13 +83,13 @@
                             <i class="fa fa-money fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div>인출</div>
+                            <div>출금</div>
                         </div>
                     </div>
                 </div>
                 <a th:href="@{/account/withdraw}">
                     <div class="panel-footer">
-                        <span class="pull-left">인출하기</span>
+                        <span class="pull-left">출금하기</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
