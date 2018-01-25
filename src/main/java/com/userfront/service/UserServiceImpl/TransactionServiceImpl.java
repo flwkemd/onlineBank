@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.userfront.dao.PrimaryAccountDao;
 import com.userfront.dao.PrimaryTransactionDao;
+import com.userfront.dao.SavingsAccountDao;
 import com.userfront.dao.SavingsTransactionDao;
 import com.userfront.domain.PrimaryTransaction;
 import com.userfront.domain.SavingsTransaction;
@@ -25,28 +27,34 @@ public class TransactionServiceImpl implements TransactionService {
 	@Autowired
 	private SavingsTransactionDao savingsTransactionDao;
 	
+	@Autowired
+	private PrimaryAccountDao primaryAccountDao;
+	
+	@Autowired
+	private SavingsAccountDao savingsAccountDao;
+	
 	public List<PrimaryTransaction> findPrimaryTransactionList(String username){
-		User user = userService.findByUsername(username);
-		List<PrimaryTransaction> primaryTransactionList = user.getPrimaryAccount().getPrimaryTransactionList();
-		
-		return primaryTransactionList;
-	}
+        User user = userService.findByUsername(username);
+        List<PrimaryTransaction> primaryTransactionList = user.getPrimaryAccount().getPrimaryTransactionList();
 
-	public List<SavingsTransaction> findSavingsTransactionList(String username){
-		User user = userService.findByUsername(username);
-		List<SavingsTransaction> savingsTransactionList = user.getSavingsAccount().getSavingsTransactionList();
-		
-		return savingsTransactionList;
-	}
-	
-	public void savePrimaryDepositTransaction(PrimaryTransaction primaryTransaction) {
-		primaryTransactionDao.save(primaryTransaction);
-	}
+        return primaryTransactionList;
+    }
 
-	public void saveSavingsDepositTransaction(SavingsTransaction savingsTransaction) {
-		savingsTransactionDao.save(savingsTransaction);
-	}
-	
+    public List<SavingsTransaction> findSavingsTransactionList(String username) {
+        User user = userService.findByUsername(username);
+        List<SavingsTransaction> savingsTransactionList = user.getSavingsAccount().getSavingsTransactionList();
+
+        return savingsTransactionList;
+    }
+
+    public void savePrimaryDepositTransaction(PrimaryTransaction primaryTransaction) {
+        primaryTransactionDao.save(primaryTransaction);
+    }
+
+    public void saveSavingsDepositTransaction(SavingsTransaction savingsTransaction) {
+        savingsTransactionDao.save(savingsTransaction);
+    }
+    
     public void savePrimaryWithdrawTransaction(PrimaryTransaction primaryTransaction) {
         primaryTransactionDao.save(primaryTransaction);
     }
@@ -54,5 +62,4 @@ public class TransactionServiceImpl implements TransactionService {
     public void saveSavingsWithdrawTransaction(SavingsTransaction savingsTransaction) {
         savingsTransactionDao.save(savingsTransaction);
     }
-	
 }

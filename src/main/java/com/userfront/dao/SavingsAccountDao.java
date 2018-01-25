@@ -6,5 +6,5 @@ import com.userfront.domain.SavingsAccount;
 
 public interface SavingsAccountDao extends CrudRepository<SavingsAccount, Long> {
 
-	SavingsAccount findByAccountNumber(int accountNumber);
+    SavingsAccount findByAccountNumber (int accountNumber);
 }
