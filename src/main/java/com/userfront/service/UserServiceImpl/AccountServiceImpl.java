@@ -15,6 +15,7 @@ import com.userfront.domain.SavingsAccount;
 import com.userfront.domain.SavingsTransaction;
 import com.userfront.domain.User;
 import com.userfront.service.AccountService;
+import com.userfront.service.TransactionService;
 import com.userfront.service.UserService;
 
 @Service
@@ -31,10 +32,13 @@ public class AccountServiceImpl implements AccountService{
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private TransactionService transactionService;
+	
 	@Override
 	public PrimaryAccount createPrimaryAccount() {
 		PrimaryAccount primaryAccount = new PrimaryAccount();
-		primaryAccount.setAccountBalance(new BigDecimal(0.0));
+		primaryAccount.setAccountBalance(new BigDecimal(0));
 		primaryAccount.setAccountNumber(accountGen());
 		
 		primaryAccountDao.save(primaryAccount);
@@ -45,7 +49,7 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public SavingsAccount createSavingsAccount() {
 		SavingsAccount savingsAccount = new SavingsAccount();
-		savingsAccount.setAccountBalance(new BigDecimal(0.0));
+		savingsAccount.setAccountBalance(new BigDecimal(0));
 		savingsAccount.setAccountNumber(accountGen());
 	
 		savingsAccountDao.save(savingsAccount);
@@ -68,6 +72,7 @@ public class AccountServiceImpl implements AccountService{
             Date date = new Date();
 
             PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, "기본 계좌로 입금하기", "기본 계좌", "완료", amount, primaryAccount.getAccountBalance(), primaryAccount);
+            transactionService.savePrimaryDepositTransaction(primaryTransaction);
             
         } else if (accountType.equalsIgnoreCase("Savings")) {
             SavingsAccount savingsAccount = user.getSavingsAccount();
@@ -76,6 +81,7 @@ public class AccountServiceImpl implements AccountService{
 
             Date date = new Date();
             SavingsTransaction savingsTransaction = new SavingsTransaction(date, "예금 계좌로 입금하기", "예금 계좌", "완료", amount, savingsAccount.getAccountBalance(), savingsAccount);
+            transactionService.saveSavingsDepositTransaction(savingsTransaction);
         }
     }
 
