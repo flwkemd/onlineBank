@@ -37,7 +37,7 @@
     <div class="container">
         <div class="navbar-header page-scroll">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">탭</span>
+                <span class="sr-only">-</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -55,16 +55,16 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">계좌보기 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="@{/account/primaryAccount}">계좌</a></li>
+                        <li><a th:href="@{/account/primaryAccount}">기본 계좌</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/account/savingsAccount}">예금액</a></li>
+                        <li><a th:href="@{/account/savingsAccount}">예금 계좌</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">이체하기 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="@{/transfer/betweenAccounts}">계좌보기</a></li>
-                        <li><a th:href="@{/transfer/toSomeoneElse}">타인 선택하기</a></li>
+                        <li><a th:href="@{/transfer/betweenAccounts}">내 계좌</a></li>
+                        <li><a th:href="@{/transfer/toSomeoneElse}">이체하기</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a th:href="@{/transfer/recipient}">수령인 추가/수정</a></li>
                     </ul>
