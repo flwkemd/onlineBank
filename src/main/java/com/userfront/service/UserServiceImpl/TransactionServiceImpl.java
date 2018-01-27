@@ -1,18 +1,22 @@
 package com.userfront.service.UserServiceImpl;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.userfront.dao.PrimaryAccountDao;
 import com.userfront.dao.PrimaryTransactionDao;
+import com.userfront.dao.RecipientDao;
 import com.userfront.dao.SavingsAccountDao;
 import com.userfront.dao.SavingsTransactionDao;
 import com.userfront.domain.PrimaryAccount;
 import com.userfront.domain.PrimaryTransaction;
+import com.userfront.domain.Recipient;
 import com.userfront.domain.SavingsAccount;
 import com.userfront.domain.SavingsTransaction;
 import com.userfront.domain.User;
@@ -37,6 +41,9 @@ public class TransactionServiceImpl implements TransactionService {
 	@Autowired
 	private SavingsAccountDao savingsAccountDao;
 
+	@Autowired
+	private RecipientDao recipientDao;
+	
 	public List<PrimaryTransaction> findPrimaryTransactionList(String username){
         User user = userService.findByUsername(username);
         List<PrimaryTransaction> primaryTransactionList = user.getPrimaryAccount().getPrimaryTransactionList();
@@ -91,5 +98,26 @@ public class TransactionServiceImpl implements TransactionService {
         } else {
             throw new Exception("Invalid Transfer");
         }
+    }
+    
+    public List<Recipient> findRecipientList(Principal principal){
+    	String username = principal.getName();
+    	List<Recipient> recipientList = recipientDao.findAll().stream()
+    			.filter(recipient -> username.equals(recipient.getUser().getUsername()))
+    			.collect(Collectors.toList());
+    	
+    	return recipientList;
+    }
+    
+    public Recipient saveRecipient(Recipient recipient) {
+    	return recipientDao.save(recipient);
+    }
+    
+    public Recipient findRecipientByName(String recipientName) {
+    	return recipientDao.findByName(recipientName);
+    }
+    
+    public void deleteRecipientByName(String recipientName) {
+    	recipientDao.deleteByName(recipientName);
     }
 }
