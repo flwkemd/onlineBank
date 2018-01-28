@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header"/>
+<meta charset="utf-8"/>
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar"/>
+<div class="container">
+    <div class="row main">
+        <div class="col-md-6">
+            <h2 class="title">마이 페이지</h2>
+            <hr/>
+            <form method="post" th:action="@{/user/profile}">
+                <input type="hidden" name="id" th:value="${user.userId}"/>
+                <input type="hidden" name="username" th:value="${user.username}"/>
+
+                <div class="form-group">
+                    <label for="firstName">이름</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.firstName}" id="firstName"
+                                   name="firstName" roleId="firstname" placeholder="이름을 입력해주세요."
+                                   required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName" class="cols-sm-2 control-label">성</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.lastName}" id="lastName"
+                                   name="lastName" roleId="lastName" placeholder="성을 입력해주세요."
+                                   required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone" class="cols-sm-2 control-label">핸드폰 번호</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.phone}" id="phone" name="phone"
+                                   roleId="phone" placeholder="xxx-xxx-xxxx" required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="cols-sm-2 control-label">이메일</label><span
+                        class="bg-danger pull-right" th:if="${emailExists}">이메일이 이미 등록되어 있습니다.</span>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-envelope fa"
+                                                                   aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.email}" id="email" name="email"
+                                   roleId="email" placeholder="이메일을 입력해주세요." required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="username" class="cols-sm-2 control-label">아이디</label><span
+                        class="bg-danger pull-right" th:if="${usernameExists}">아이디가 이미 존재합니다.</span>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.username}" id="username"
+                                   name="username" roleId="username" placeholder="아이디를 입력해주세요."
+                                   disabled="disabled"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <button type="submit" class="btn btn-primary btn-block ">변경하기
+                    </button>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-md-6">
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    <h1 class="title">계좌 정보</h1>
+                    <hr/>
+                </div>
+                <table class="responstable">
+                    <tr>
+                        <th>기본 계좌 번호</th>
+                        <th>예금 계좌 번호</th>
+                    </tr>
+
+                    <tr>
+                        <td data-th-text="${user.primaryAccount.accountNumber}">...</td>
+                        <td data-th-text="${user.savingsAccount.accountNumber}">...</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+
+</body>
+</html>
